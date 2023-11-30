@@ -14,10 +14,11 @@ const defaultFormFields = {
   password: "",
   confirmPassword: "",
 };
+
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
+  // const { setCurrentUser } = useContext(UserContext);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
