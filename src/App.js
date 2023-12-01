@@ -10,6 +10,8 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="shop" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
+        {/* UPDATE TO CHECKOUT PAGE */}
+        <Route path="checkout" element={<Home />} />
       </Route>
     </Routes>
   );
