@@ -11,7 +11,18 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBa4otkDF4N9MFZRVs_4u5fh6SS6gHs7Ig",
   authDomain: "react-ecom-e293e.firebaseapp.com",
@@ -39,6 +50,36 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionKey);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("done");
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "collections");
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return categoryMap;
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,
