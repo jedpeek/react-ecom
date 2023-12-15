@@ -35,7 +35,7 @@ function Navigation() {
               LOGOUT
             </span>
           ) : (
-            <NavLink as="span" className="nav-link" to="/auth">
+            <NavLink className="nav-link" to="/auth">
               SIGN IN
             </NavLink>
           )}
