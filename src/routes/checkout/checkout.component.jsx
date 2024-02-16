@@ -1,5 +1,3 @@
-import "./checkout.styles.scss";
-
 import { useSelector } from "react-redux";
 
 import {
@@ -8,46 +6,45 @@ import {
 } from "../../store/cart/cart.selector";
 
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-function Checkout() {
+
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+} from "./checkout.styles";
+import PaymentForm from "../../components/payment-form/payment-form.component";
+
+const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+
   return (
-    <div className="checkout-container">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
-      <h1>Checkout</h1>
-      <div>
-        {cartItems.map((item) => {
-          // const { id, name, quantity } = item;
-          return (
-            <CheckoutItem key={item.id} cartItem={item} />
-            // <div key={id}>
-            //   <h2>{name}</h2>
-            //   <span>{quantity}</span>
-            //   <span onClick={() => removeItemFromCart(item)}>Decrement</span>
-            //   <span onClick={() => addItemToCart(item)}>Increment</span>
-            // </div>
-          );
-        })}
-      </div>
-      <span className="total">Total: $ {cartTotal}</span>
-    </div>
+        </HeaderBlock>
+      </CheckoutHeader>
+      {cartItems.map((cartItem) => (
+        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+      ))}
+      <Total>Total: ${cartTotal}</Total>
+      <PaymentForm />
+    </CheckoutContainer>
   );
-}
+};
 
 export default Checkout;
