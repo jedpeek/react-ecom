@@ -19,7 +19,8 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import SHOP_DATA from "../../shop-data";
 const firebaseConfig = {
   apiKey: "AIzaSyBa4otkDF4N9MFZRVs_4u5fh6SS6gHs7Ig",
   authDomain: "react-ecom-e293e.firebaseapp.com",
@@ -48,8 +49,7 @@ export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd,
-  field
+  objectsToAdd
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -62,6 +62,7 @@ export const addCollectionAndDocuments = async (
   await batch.commit();
   console.log("done");
 };
+// addCollectionAndDocuments("collections", SHOP_DATA);
 //GETS PRODUCTS from FIRESTORE
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "collections");
@@ -116,3 +117,34 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const downloadFromFirebase = async (fileName) => {
+  const storage = getStorage();
+  const gsRef = ref(storage, fileName);
+  await getDownloadURL(gsRef)
+    .then((url) => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.download = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+    .catch((error) => {
+      switch (error.code) {
+        case "storage/object-not-found":
+          console.log("FILE DOES NOT EXIST", error);
+          break;
+        case "storage/unauthorized":
+          console.log("UNAUTHORIZED", error);
+          break;
+        case "storage/canceled":
+          console.log("STORAGE CANCELLED", error);
+          break;
+
+        case "storage/unknown":
+          break;
+      }
+    });
+};
