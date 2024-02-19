@@ -1,4 +1,3 @@
-// import React, { useEffect } from "react";
 import { selectCartItems } from "../../store/cart/cart.selector";
 import { useSelector } from "react-redux";
 import { downloadFromFirebase } from "../../utils/firebase/firebase.utils";
