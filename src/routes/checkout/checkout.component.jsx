@@ -18,7 +18,7 @@ import PaymentForm from "../../components/payment-form/payment-form.component";
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
-
+  console.log("CHECKOUT", cartItems);
   return (
     <CheckoutContainer>
       <CheckoutHeader>

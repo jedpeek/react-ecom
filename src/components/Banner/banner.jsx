@@ -7,9 +7,9 @@ export const Hero = () => {
         <div className="flex h-full items-center justify-center p-5 m-5">
           <div className="px-6 text-center text-white md:px-12">
             <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl uppercase">
-              Check out the latest styles
+              Check out the latest sounds
               <br />
-              <span>for everyone</span>
+              <span>for every Genre</span>
             </h1>
             <Link to="/shop">
               <button

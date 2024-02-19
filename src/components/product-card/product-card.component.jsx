@@ -1,15 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { selectCartItems } from "../../store/cart/cart.selector";
-import { addItemToCart } from "../../store/cart/cart.action";
+import { addItemToCart } from "../../store/cart/cart.reducer";
 import { downloadFromFirebase } from "../../utils/firebase/firebase.utils";
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl, fileName } = product;
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
 
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+  const addProductToCart = () => dispatch(addItemToCart(product));
 
   return (
     <div class="lg:w-1/4 md:w-1/2 p-4 w-full">

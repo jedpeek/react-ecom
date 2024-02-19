@@ -1,124 +1,41 @@
-// import { Fragment } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
-import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
-
-import {
-  NavigationContainer,
-  NavLinks,
-  NavLink,
-  LogoContainer,
-} from "./navigation.styles";
-
-// const Navigation = () => {
-//   const currentUser = useSelector(selectCurrentUser);
-//   const isCartOpen = useSelector(selectIsCartOpen);
-
-//   return (
-//     <Fragment>
-//       <NavigationContainer>
-//         <LogoContainer to="/">
-//           <CrwnLogo className="hover:scale-110 duration-200" />
-//         </LogoContainer>
-//         <NavLinks>
-//           <NavLink
-//             to="/shop"
-//             className="text-2xl uppercase font-bold hover:underline"
-//           >
-//             SHOP
-//           </NavLink>
-//           <NavLink
-//             to="/"
-//             className="text-2xl uppercase font-bold hover:underline"
-//           >
-//             Tailwind
-//           </NavLink>
-//           {currentUser ? (
-//             <NavLink
-//               as="span"
-//               onClick={signOutUser}
-//               className="text-2xl uppercase font-bold hover:underline"
-//             >
-//               SIGN OUT
-//             </NavLink>
-//           ) : (
-//             <NavLink to="/auth" className="text-2xl font-bold hover:underline">
-//               SIGN IN
-//             </NavLink>
-//           )}
-//           <CartIcon />
-//         </NavLinks>
-//         {isCartOpen && <CartDropdown />}
-//       </NavigationContainer>
-//       <Outlet />
-//     </Fragment>
-//   );
-// };
-
-// export default Navigation;
 
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
-import Hero from "../../components/Banner/banner";
 
 const products = [
   {
-    name: "Hats",
-    description: "",
-    href: "/shop/hats",
-    icon: ChartPieIcon,
+    id: 1,
+    title: "Serum",
+    imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
+    route: "shop/serum%20presets",
   },
   {
-    name: "Jackets",
-    description: "",
-    href: "/shop/jackets",
-    icon: CursorArrowRaysIcon,
+    id: 2,
+    title: "Drum Samples",
+    imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
+    route: "shop/drum%20samples",
   },
   {
-    name: "Sneakers",
-    description: "",
-    href: "/shop/sneakers",
-    icon: FingerPrintIcon,
+    id: 3,
+    title: "Ambient Tracks",
+    imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
+    route: "shop/ambient%20tracks",
   },
-  {
-    name: "Womens",
-    description: "",
-    href: "/shop/womens",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Mens",
-    description: "",
-    href: "/shop/mens",
-    icon: ArrowPathIcon,
-  },
-];
-const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 
 export default function Navigation() {
@@ -138,8 +55,8 @@ export default function Navigation() {
       >
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">React Ecom</span>
-            <CrwnLogo />
+            <span className="sr-only">Sonic Library</span>
+            <img src="/S.jpg" alt="logo" className="w-[60px] h-[60px]" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -154,7 +71,7 @@ export default function Navigation() {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 uppercase">
+            <Popover.Button className="flex items-center gap-x-1 text-lg font-semibold leading-6 text-gray-900 uppercase">
               Collections
               <ChevronDownIcon
                 className="h-5 w-5 flex-none text-gray-400"
@@ -175,15 +92,15 @@ export default function Navigation() {
                 <div className="p-4">
                   {products.map((item) => (
                     <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                      key={item.title}
+                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-md leading-6 hover:bg-gray-50"
                     >
                       <div className="flex-auto">
                         <Link
-                          to={item.href}
+                          to={item.route}
                           className="block font-semibold text-gray-900 uppercase"
                         >
-                          {item.name}
+                          {item.title}
                           <span className="absolute inset-0" />
                         </Link>
                         <p className="mt-1 text-gray-600">{item.description}</p>
@@ -196,13 +113,13 @@ export default function Navigation() {
           </Popover>
           <Link
             to="/shop"
-            className="text-sm font-semibold leading-6 text-gray-900 uppercase"
+            className="text-lg font-semibold leading-6 text-gray-900 uppercase"
           >
             Shop
           </Link>
           <Link
             to="/checkout"
-            className="text-sm font-semibold leading-6 text-gray-900 uppercase"
+            className="text-lg font-semibold leading-6 text-gray-900 uppercase"
           >
             <span className="flex center">Checkout</span>
           </Link>
@@ -213,9 +130,9 @@ export default function Navigation() {
             <Link to="/">
               <span
                 onClick={signOutUser}
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900"
               >
-                SIGN OUT
+                SIGN OUT ( {currentUser.email} )
               </span>
             </Link>
           </div>
@@ -223,7 +140,7 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
               to="/auth"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-lg font-semibold leading-6 text-gray-900"
             >
               SIGN IN <span aria-hidden="true">&rarr;</span>
             </Link>
@@ -241,11 +158,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <img className="h-8 w-auto" src="/S.jpg" alt="" />
             </a>
             <button
               type="button"
@@ -262,7 +175,7 @@ export default function Navigation() {
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 uppercase">
                         Categories
                         <ChevronDownIcon
                           className={classNames(
@@ -275,11 +188,11 @@ export default function Navigation() {
                       <Disclosure.Panel className="mt-2 space-y-2">
                         {[...products].map((item) => (
                           <Link
-                            to={item.href}
-                            key={item.name}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                            to={item.route}
+                            key={item.title}
+                            className="block rounded-lg py-2 pl-6 pr-3 text-md uppercase font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                           >
-                            {item.name}
+                            {item.title}
                           </Link>
                         ))}
                       </Disclosure.Panel>
@@ -288,7 +201,7 @@ export default function Navigation() {
                 </Disclosure>
                 <Link
                   to="/shop"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className="-mx-3 block uppercase rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Shop
                 </Link>
@@ -299,7 +212,7 @@ export default function Navigation() {
                     onClick={signOutUser}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    SIGN OUT
+                    SIGN OUT ( {currentUser.email} )
                   </span>
                 ) : (
                   <Link
