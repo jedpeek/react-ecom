@@ -23,12 +23,6 @@ const CategoryPreview = ({ title, products }) => {
             ))}
         </div>
       </div>
-      {/* 
-      <div className="w-full mx-auto rounded  ">
-        <Link to={`/shop/${title}`} className="uppercase">
-          MORE {title}
-        </Link>
-      </div> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { StripeCardElement } from "@stripe/stripe-js";
+
 import { useSelector } from "react-redux";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
@@ -13,6 +13,7 @@ import {
   FormContainer,
   PaymentButton,
 } from "./payment-form.styles";
+import { useNavigate } from "react-router-dom";
 
 const ifValidCardElement = (card) => card !== null;
 
@@ -22,7 +23,7 @@ const PaymentForm = () => {
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-
+  const navigate = useNavigate();
   const paymentHandler = async (e) => {
     e.preventDefault();
 
@@ -64,6 +65,7 @@ const PaymentForm = () => {
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         alert("Payment Successful");
+        navigate("/success");
       }
     }
   };

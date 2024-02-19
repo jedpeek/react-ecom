@@ -20,7 +20,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import SHOP_DATA from "../../shop-data";
+// import SHOP_DATA from "../../shop-data";
+import MUSIC_DATA from "../../music_data";
 const firebaseConfig = {
   apiKey: "AIzaSyBa4otkDF4N9MFZRVs_4u5fh6SS6gHs7Ig",
   authDomain: "react-ecom-e293e.firebaseapp.com",
@@ -62,10 +63,10 @@ export const addCollectionAndDocuments = async (
   await batch.commit();
   console.log("done");
 };
-// addCollectionAndDocuments("collections", SHOP_DATA);
+// addCollectionAndDocuments("music", MUSIC_DATA);
 //GETS PRODUCTS from FIRESTORE
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "collections");
+  const collectionRef = collection(db, "music");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);

@@ -15,7 +15,7 @@ export const Body = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  // border: 1px solid black;
   background-color: white;
   opacity: 0.7;
   position: absolute;
@@ -41,7 +41,8 @@ export const DirectoryItemContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  // border: 1px solid black;
+
   margin: 0 7.5px 15px;
   overflow: hidden;
 
@@ -58,7 +59,7 @@ export const DirectoryItemContainer = styled.div`
 
     ${BackgroundImage} {
       transform: scale(1.1);
-      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      transition: transform 3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
     ${Body} {

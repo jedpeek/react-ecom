@@ -1,4 +1,11 @@
 import { loadStripe } from "@stripe/stripe-js";
-export const stripePromise = loadStripe(
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-);
+
+let stripePromise;
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+  }
+  return stripePromise;
+};
+
+export default getStripe;
